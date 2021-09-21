@@ -3,19 +3,20 @@
 
 ## Video
 ---
+![image](https://user-images.githubusercontent.com/65532515/134121749-570af426-4ec3-4224-ac17-c7da8c0ca706.png)
 
 
 ## Goal
 ---
-![map](./image/map.png)
-- 차선을 벗어나지 않고 3바퀴 연속 주행
+![image](https://user-images.githubusercontent.com/65532515/134121585-286cfbe2-ca73-4648-b11b-305b6d6c438c.png)
+- 위 맵에서 초록색 부분을 장애물과 충돌하지 않고 최단시간으로 완주.
 
 ## Environment
 ---
 - Ubuntu 18.04
 - ROS Melodic
-- Xycar 무슨 모델인지 까먹음 ㅎㅎ
-- Nvidia TX 2
+- Cartographer
+- Unity
 
 ## Structure
 ---
@@ -60,7 +61,7 @@ $ roslaunch xycar_slam unity_localization_with_stanley.launch
 ### localization
 ![image](https://user-images.githubusercontent.com/65532515/134115078-2363dcf3-bf48-4583-8581-e31ba3d6c4bd.png)
 - 위에서 제작한 맵을 토대로 localization을 진행한다. 
-### path planning & steering control
+### path planning & control
 ![image](https://user-images.githubusercontent.com/65532515/134119319-62f924a7-be56-4271-8923-5a333136f601.png)
 - 맵의 x, y 좌표와 차의 현재 위치(x, y)좌표를 비교하여 heading error와 cross track error(cte) 를 구하고, steering angle 값을 도출하여 reference path대로 따라갈 수 있도록 path planning 진행.
 
@@ -74,5 +75,6 @@ $ roslaunch xycar_slam unity_localization_with_stanley.launch
 ## What I've learned
 ---
 - 발행하는 모터 토픽 값과 실제 자동차의 속도는 차이가 있다는 사실을 깨달았고, stanley error를 구할 때 속도가 들어가는 method인 만큼 토픽값을 현실과 맞추는 과정이 필요함을 깨달음.
-- path planning과 tracking 하는 과정을 시뮬레이터를 통해 직접 구현해보는 경험을 얻음.
-- SLAM
+- stanley시뮬레이터를 통해 직접 구현해보는 경험을 얻음.
+- SLAM을 자율주행에 어떻게 적용하는지 배움.
+
