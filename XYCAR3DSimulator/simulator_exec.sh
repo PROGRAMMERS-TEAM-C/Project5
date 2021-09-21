@@ -1,6 +1,0 @@
-#!/bin/bash
-
-XYCAR_SIMULATOR_TRUE_SCRIPT_NAME=$(echo \"$0\" | xargs readlink -f)
-XYCAR_SIMULATOR_PROJECT_ROOT=$(dirname "$XYCAR_SIMULATOR_TRUE_SCRIPT_NAME")
-chmod +x "$XYCAR_SIMULATOR_PROJECT_ROOT/xycar3dsimulator"
-"$XYCAR_SIMULATOR_PROJECT_ROOT/xycar3dsimulator"
