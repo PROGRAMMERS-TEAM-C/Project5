@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<package>
+  <name>xycar_imu</name>
+  <version>0.0.0</version>
+  <description>The imu(9dof) package in xytron</description>
+
+  <maintainer email="ybcho@xytron.co.kr">xytron</maintainer>
+
+  <license>commercial license</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>dynamic_reconfigure</build_depend>
+
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>tf</build_depend>
+
+  <build_depend>qtbase5-dev</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>rviz</build_depend>
+
+  <run_depend>dynamic_reconfigure</run_depend>
+  <run_depend>sensor_msgs</run_depend>
+  <run_depend>tf</run_depend>
+
+  <run_depend>libqt5-core</run_depend>
+  <run_depend>libqt5-gui</run_depend>
+  <run_depend>libqt5-widgets</run_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>rviz</run_depend>
+
+  <export>
+    <rosdoc config="${prefix}/rosdoc.yaml"/>
+    <rviz plugin="${prefix}/plugin_description.xml"/>
+  </export>
+</package>
