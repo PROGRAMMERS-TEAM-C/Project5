@@ -20,61 +20,59 @@
 ## Structure
 ---
 ~~~
-Project2
-  └─ src
-  │    └─ main.py               # xycar drive main code
-  │    └─ main_video.py         # video drive main code
-  │    └─ imageProcessing.py    # imageProcessing Module
-  │    └─ pid.py                # PID Module
-  │    └─ movingAverage.py      # movingAverage Filter Module
-  └─ launch
-        └─ main.launch           # xycar drive main launch
-        └─ src
+Project4
+  └─ map
+  │    └─ path_youngjin_last.pkl             # reference path
+  └─ path_follower
+  │    └─ src             
+  │        └─ ego_vehicle.py              # make vehicle go straight
+  │        └─ map_drawer.py               # draw reference path on rviz
+  │        └─ stanley.py                  # calculate yaw_term, cte_term to return angle
+  │        └─ stanley_follower.py         # Publish motor topic through angle value and fixed speed value calculated in stanley.py
+  │        └─ stanley_follower_v2.py      # Publish the motor topic by obtaining the angle value and the current speed value calculated in stanley.py
+  └─ xycar_imu   #A package that allows publishing to imu topics.
+  └─ xycar_msgs  #A package that allows publishing to motor topics.
+  └─ xycar_slam
+  │    └─ config             # lua file
+  │        └─ localization_xytron_without_imu_youngjin.lua           
+  │    └─ launch        #launch file
+  │        └─ unity_localization_with_stanley.launch        
+  │    └─ maps   # mapped map
+  │        └─ comp1_youngjin_last_without_imu.pbstream
+  │    └─ rviz              # rviz file
+  │        └─ localization.rviz
+  │        └─ mapping.rviz
+  │    └─ urdf    # urdf file
+  │        └─ xycar.urdf
 ~~~
 
 ## Usage
 ---
 ~~~bash
-$ roslaunch Project2 main.launch
+$ roslaunch xycar_slam unity_localization_with_stanley.launch
 ~~~
 
-## Procedure
+## Procedure & Try
 ---
-### lane detection
-1. gray scale  
-<img src="./image/gray.png" Width="320" Height="240"/>  
-2. roi  
-<img src="./image/roi.png"/>  
-3. Gaussian blur  
-<img src="./image/blur.png"/>  
-4. Canny edge  
-<img src="./image/edge.png"/>
-5. HoughLinesP로 차선 후보 검출  
-<img src="./image/hough.png" Width="320" Height="240"/>  
-6. 차선 후보 중 offset(특정 y값)의 x 좌표를 왼쪽 차선과 오른쪽 차선으로 선정  
-<img src="./image/final.png" Width="320" Height="240"/>  
-
-### steering control
-1. 화면의 중심을 기준으로 왼쪽 좌표와 오른쪽 좌표의 중심과의 차이를 구해서 error 도출
-2. 한쪽 좌표가 없어졌을 때를 코너로 인식
-3. 직선과 코너에 다르게 PID 제어
-
-## Try
----
-1. PID Control
-2. Moving Average Filter
-3. 2-way Lane Detection
+### mapping
+![image (1)](https://user-images.githubusercontent.com/65532515/134115059-b5a23b5b-6c2d-4ff0-afbf-30df73460156.png)
+- mapping 전용 lua 파일을 이용하여 주행할 맵을 매핑한다.
+### localization
+![image](https://user-images.githubusercontent.com/65532515/134115078-2363dcf3-bf48-4583-8581-e31ba3d6c4bd.png)
+- 위에서 제작한 맵을 토대로 localization을 진행한다. 
+### path planning & steering control
+![image](https://user-images.githubusercontent.com/65532515/134119319-62f924a7-be56-4271-8923-5a333136f601.png)
+- 맵의 x, y 좌표와 차의 현재 위치(x, y)좌표를 비교하여 heading error와 cross track error(cte) 를 구하고, steering angle 값을 도출하여 reference path대로 따라갈 수 있도록 path planning 진행.
 
 ## Limitations
 ---
-- 바닥에 비친 형광등, 기둥을 차선으로 인식하여 차선을 벗어나는 경우가 있었다. 
-  - 카메라 노출도 조정과 한쪽 차선만 검출하여 해결
-- PID 제어를 사용할 때 직선 구간에서 똑바로 가지 못함 
-  - PID값을 조절하여 P = 0.25, I = 0.0005, D = 0.25 으로 설정했을 때 가장 안정적이었음.
-- 하지만 위 PID 값을 적용했을 때, 곡선에서 차선 이탈을 하는 문제가 있었음 
-  - 곡선과 직선에서의 PID값을 따로 주어 해결 -> 곡선 P = 0.5, I = 0.0, D = 0.25 로 설정. 
+- stanley method는 x, y좌표가 rear wheel기준인데, reference path의 x, y값은 시뮬레이터 상에서 자동차의 앞부분에 라이다가 달려있다고 가정하고 기록된 좌표이기 때문에 둘 사이의 간극을 메울 필요가 있었음 
+  - front_x, front_y 값을 현재 x, y값에 자동차의 L(wheel base) * cos(yaw), L(wheel base) * sin(yaw)값 만큼 더해준 값을 사용하였다.
+- 코너구간에서 조향을 하지 않고 엉뚱한 곳에서 조향을 하는 문제가 있었음.
+  - 발행하는 모터 토픽값은 실제 자동차의 속도와 차이가 있었음. ((이동한 거리 / (x, y)좌표 발행주기) 만큼을 속도로 하여 stanley method의 cte term을 구할 때 사용.
+
 ## What I've learned
 ---
-- hough
-- PID
-- MovingAverageFilter
+- 발행하는 모터 토픽 값과 실제 자동차의 속도는 차이가 있다는 사실을 깨달았고, stanley error를 구할 때 속도가 들어가는 method인 만큼 토픽값을 현실과 맞추는 과정이 필요함을 깨달음.
+- path planning과 tracking 하는 과정을 시뮬레이터를 통해 직접 구현해보는 경험을 얻음.
+- SLAM
