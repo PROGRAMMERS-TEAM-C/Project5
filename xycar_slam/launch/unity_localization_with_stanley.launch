@@ -9,7 +9,7 @@
   <node name="cartographer_node" pkg="cartographer_ros" type="cartographer_node" args="        
       -configuration_directory $(find xycar_slam)/config        
       -configuration_basename localization_xytron_without_imu.lua
-      -load_state_filename $(find xycar_slam)/maps/comp1_youngjin_last_without_imu.pbstream" /> 
+      -load_state_filename $(find xycar_slam)/maps/comp1_without_imu.pbstream" /> 
 
   <node name="rviz" pkg="rviz" type="rviz" args=" -d $(find xycar_slam)/rviz/localization.rviz" />
 </launch>
