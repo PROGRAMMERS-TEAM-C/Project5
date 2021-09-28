@@ -1,10 +1,8 @@
-# Project4
-프로그래머스 자율주행 데브코스 시뮬레이터 SLAM 프로젝트
+# Programmers Autonomous-Driving Dev course. Simulator SLAM Project
 
-## Video
+## Driving Pictures
 ---
 ![image](https://user-images.githubusercontent.com/65532515/134121749-570af426-4ec3-4224-ac17-c7da8c0ca706.png)
-
 
 ## Goal
 ---
