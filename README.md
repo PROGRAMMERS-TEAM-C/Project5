@@ -23,28 +23,22 @@
 ~~~
 Project4
   └─ map
-  │    └─ path_youngjin_last.pkl             # reference path
+  │    └─ path_youngjin_last.pkl          # reference path
   └─ path_follower
   │    └─ src             
-  │        └─ ego_vehicle.py              # make vehicle go straight
-  │        └─ map_drawer.py               # draw reference path on rviz
-  │        └─ stanley.py                  # calculate yaw_term, cte_term to return angle
-  │        └─ stanley_follower.py         # Publish motor topic through angle value and fixed speed value calculated in stanley.py
-  │        └─ stanley_follower_v2.py      # Publish the motor topic by obtaining the angle value and the current speed value calculated in stanley.py
-  └─ xycar_imu   #A package that allows publishing to imu topics.
-  └─ xycar_msgs  #A package that allows publishing to motor topics.
+  │         └─ ego_vehicle.py             # make vehicle go straight
+  │         └─ map_drawer.py              # draw reference path on rviz
+  │         └─ stanley.py                 # calculate yaw_term, cte_term to return angle
+  │         └─ stanley_follower.py        # Publish motor topic through angle value and fixed speed value calculated in stanley.py
+  │         └─ stanley_follower_v2.py     # Publish the motor topic by obtaining the angle value and the current speed value calculated in stanley.py
+  └─ xycar_imu                             # A package that allows publishing to imu topics.
+  └─ xycar_msgs                            # A package that allows publishing to motor topics.
   └─ xycar_slam
-  │    └─ config             # lua file
-  │        └─ localization_xytron_without_imu_youngjin.lua           
-  │    └─ launch        #launch file
-  │        └─ unity_localization_with_stanley.launch        
-  │    └─ maps   # mapped map
-  │        └─ comp1_youngjin_last_without_imu.pbstream
-  │    └─ rviz              # rviz file
-  │        └─ localization.rviz
-  │        └─ mapping.rviz
-  │    └─ urdf    # urdf file
-  │        └─ xycar.urdf
+       └─ config                           # lua file     
+       └─ launch                           # launch file
+       └─ maps                             # mapped map
+       └─ rviz                             # rviz file
+       └─ urdf                             # urdf file
 ~~~
 
 ## Usage
@@ -75,6 +69,5 @@ $ roslaunch xycar_slam unity_localization_with_stanley.launch
 ## What I've learned
 ---
 - 발행하는 모터 토픽 값과 실제 자동차의 속도는 차이가 있다는 사실을 깨달았고, stanley error를 구할 때 속도가 들어가는 method인 만큼 토픽값을 현실과 맞추는 과정이 필요함을 깨달음.
-- stanley시뮬레이터를 통해 직접 구현해보는 경험을 얻음.
+- stanley 시뮬레이터를 통해 직접 구현해보는 경험을 얻음.
 - SLAM을 자율주행에 어떻게 적용하는지 배움.
-
