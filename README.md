@@ -4,6 +4,15 @@
 ---
 ![image](https://user-images.githubusercontent.com/65532515/134121749-570af426-4ec3-4224-ac17-c7da8c0ca706.png)
 
+## Member Roles
+
+| 이름         | 담당                                         |
+| ------------ | :------------------------------------------- |
+| 조영진(팀장) | Mapping & Localization 및 Stanley 주행 구현 |
+| 구민상       | Mapping & Localization 및 Stanley 주행 구현 |
+| 고세람       | Mapping & Localization 구현 |
+| 임경묵       | Mapping & Localization 구현 |
+
 ## Goal
 ---
 ![image](https://user-images.githubusercontent.com/65532515/134121585-286cfbe2-ca73-4648-b11b-305b6d6c438c.png)
